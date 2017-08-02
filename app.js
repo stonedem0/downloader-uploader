@@ -1,17 +1,17 @@
 const
     express = require('express'),
-    
     app = express(),
     // routes
-    uploader = require('./routes/uploader')( app );
+    uploader = require('./routes/uploader')( app ),
+    downloader = require('./routes/downloader')( app);
 
 app.use( express.static(__dirname + '/public'));
 
-app.get('/download', (req, res, next) =>{
-    let file = __dirname + '/downloads/eva.png';
-    console.log(file);
-    res.download(file);
-});
+// app.get('/download', (req, res, next) =>{
+//     let file = __dirname + '/downloads/eva.png';
+//     console.log(file);
+//     res.download(file);
+// });
 
 app.use(function(err, req, res, next) {
     console.log( 'ERR', err );
