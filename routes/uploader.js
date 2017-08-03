@@ -8,8 +8,7 @@ const
             callback(null, file.originalname);
         }
     }),
-    upload = multer({storage: storage})
-        .array('userPhoto', 10);
+    upload = multer ({ storage: storage }).array('userPhoto', 10);
 /**
  * jsdoc3
  * @param app
@@ -20,7 +19,8 @@ module.exports = ( app ) => {
             console.log(req.body);
             console.log(req.files);
             if (err) {
-                return res.end("Error uploading file.");
+                res.json( { error: err.message, test: true } );
+                return next(err);
             }
             res.end("File is uploaded");
         });
