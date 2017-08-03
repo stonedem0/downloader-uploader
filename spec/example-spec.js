@@ -1,6 +1,6 @@
-const request = require("request");
-
-const base_url = "http://localhost:3000/";
+const request = require("request"),
+      uploader = require('./routes/uploader'),
+      base_url = "http://localhost:3000/";
 
 describe("server", () =>  {
     describe("GET /", () => {
@@ -11,4 +11,11 @@ describe("server", () =>  {
             });
         });
     });
+    describe("file is object", () => {
+        it("file typeof == object", (done) => {
+                expect(typeof uploader.file).toBe('object');
+                done();
+        });
+    });
 });
+

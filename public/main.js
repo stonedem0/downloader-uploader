@@ -4,7 +4,7 @@ $("#btn_download").on('click', () => {
 $(document).ready( () => {
     $('#uploadForm').submit( (e) => {
         console.log(e.target);
-//
+
         $(e.target).ajaxSubmit({
 
             error: (xhr) => {
@@ -12,6 +12,7 @@ $(document).ready( () => {
             },
             success: (response) => {
                 console.log(response);
+                $('#status').html('ok');
 //
             }
         });
