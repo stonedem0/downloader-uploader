@@ -1,39 +1,33 @@
 const
-    multer = require('multer'),
+    multer = require( 'multer' ),
     storage = multer.diskStorage({
-        destination: (req, file, callback) => {
+        destination: ( req, file, callback ) => {
             callback(null, './upload');
         },
-        filename: (req, file, callback) => {
-            console.log( typeof file);
-            callback(null, file.originalname);
+        filename: ( req, file, callback ) => {
+            callback( null, file.originalname );
         }
     }),
 
-    upload = multer ({ storage: storage }).array('userPhoto', 10);
+    upload = multer ({ storage: storage }).array( 'userPhoto', 10 );
 
 
-    // console.log(typeof upload, multer);
-    // console.log(storage);
 
 
 /**
- * jsdoc3
+ * upload module
  * @param app
  */
 module.exports = ( app ) => {
-    app.post('/upload', (req, res, next) => {
-        upload(req, res, (err) => {
-            // console.log(upload);
-            //
-            // // console.log(req, res);
-            // console.log( typeof req.body);
-            // console.log( typeof req.files, req.files);
-            if (err) {
+    app.post( '/upload', ( req, res, next ) => {
+        upload( req, res, (err) => {
+            console.log( req.body );
+            console.log( req.files );
+            if ( err ) {
                 res.json( { error: err.message, test: true } );
-                return next(err);
+                return next( err );
             }
-            res.end("File is uploaded");
+            res.end( 'File is uploaded' );
         });
     });
 };
