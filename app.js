@@ -6,9 +6,11 @@ const
     downloader = require('./routes/downloader')( app );
 
 app.use( express.static(__dirname + '/public'));
+// console.log(app);
 app.use(function(err, req, res, next) {
+
     console.log(err.stack);
-    res.send( { error: err.message, test: false } );
+    res.json( { error: err.message, test: false } );
     next();
     res.end();
     // TODO res.end
@@ -18,4 +20,5 @@ app.use(function(err, req, res, next) {
 
 app.listen(3000, () => {
     console.log("Working on port 3000");
+
 });
