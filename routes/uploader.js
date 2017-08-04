@@ -1,4 +1,5 @@
 const
+
     multer = require( 'multer' ),
     storage = multer.diskStorage({
         destination: ( req, file, callback ) => {
@@ -10,8 +11,6 @@ const
     }),
 
     upload = multer ({ storage: storage }).array( 'userPhoto', 10 );
-
-
 
 
 /**
@@ -32,3 +31,7 @@ module.exports = ( app ) => {
     });
 };
 
+
+module.exports.multi = function (a, b) {
+  return a * b;  
+};

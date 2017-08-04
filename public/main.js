@@ -2,7 +2,6 @@ $( '#btn_download' ).on('click', () => {
     window.open( '/download' )
     });
 
-$( document ).ready( () => {
     $('#uploadForm').submit( ( e ) => {
 
         $( e.target ).ajaxSubmit({
@@ -16,7 +15,6 @@ $( document ).ready( () => {
 
             }
         });
-        
+
         return false;
     });
-});
