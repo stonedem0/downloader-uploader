@@ -1,5 +1,4 @@
 const
-
     multer = require( 'multer' ),
     storage = multer.diskStorage({
         destination: ( req, file, callback ) => {
@@ -7,6 +6,7 @@ const
         },
         filename: ( req, file, callback ) => {
             callback( null, file.originalname );
+            console.log(file.mimetype);
         }
     }),
 
@@ -17,6 +17,8 @@ const
  * upload module
  * @param app
  */
+
+
 module.exports = ( app ) => {
     app.post( '/upload', ( req, res, next ) => {
         upload( req, res, (err) => {
