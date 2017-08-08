@@ -48,13 +48,13 @@ describe('server', () => {
     });
 
 
-    describe('test', () => {
-        it('test', (done) => {
-            console.log(uploader.storage);
-            expect(uploader.multi(2, 2)).toBe(4);
-            done();
-        });
-    });
+    // describe('test', () => {
+    //     it('test', (done) => {
+    //         console.log(uploader.storage);
+    //         expect(uploader.multi(2, 2)).toBe(4);
+    //         done();
+    //     });
+    // });
 
 });
 

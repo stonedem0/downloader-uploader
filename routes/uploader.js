@@ -25,7 +25,6 @@ module.exports = ( app ) => {
             console.log( req.body );
             console.log( req.files );
             if ( err ) {
-                res.json( { error: err.message, test: true } );
                 return next( err );
             }
             res.end( 'File is uploaded' );
@@ -33,7 +32,3 @@ module.exports = ( app ) => {
     });
 };
 
-
-module.exports.multi = function (a, b) {
-  return a * b;  
-};
