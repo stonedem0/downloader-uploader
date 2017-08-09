@@ -24,10 +24,13 @@ module.exports = ( app ) => {
         upload( req, res, (err) => {
             console.log( req.body );
             console.log( req.files );
-            if ( err ) {
-                return next( err );
+            if (err) {
+                next(new Error('something wrong'));
+                return;
             }
-            res.end( 'File is uploaded' );
+            // res.end( 'File is uploaded' );
+            next();
+
         });
     });
 };

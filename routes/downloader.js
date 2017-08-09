@@ -4,12 +4,19 @@
  */
 
 module.exports = ( app ) => {
-    app.get('/download', ( req, res, next, err) => {
-        let file = './downloads/eeva.png';
-        if (file == undefined || file == null){
-            return next(err);
+    app.get('/download', ( req, res, next ) => {
+        let file = './downloads/eva.png';
+        // file = '';
+        if ( !file ) {
+            console.log( 1 );
+            next( new Error( 'something wrong' ) );
         }
-        res.download( file );
-       
+        else {
+            console.log(2);
+            console.log(file);
+            res.download(file);
+        }
     });
 };
+
+
