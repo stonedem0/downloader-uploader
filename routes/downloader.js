@@ -12,6 +12,7 @@ module.exports = ( app ) => {
             next( new Error( 'something wrong' ) );
         }
         else {
+            // console.log(res);
             console.log(2);
             console.log(file);
             res.download(file);

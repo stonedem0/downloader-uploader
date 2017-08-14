@@ -11,12 +11,27 @@
   },
   "devDependencies": {
     "browserify": "^14.4.0",
+    "jasmine": "^2.7.0",
     "jasmine-node": "^1.14.5",
     "karma-browserify": "^5.1.1",
     "karma-chrome-launcher": "^2.2.0",
-    "karma-jasmine": "^1.1.0"
+    "karma-jasmine": "^1.1.0",
+    "supertest": "^3.0.0"
   },
   "scripts": {
-    "test": "./node_modules/.bin/jasmine-node spec"
-  }
+    "test": "jasmine"
+  },
+  "main": "app.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/stonedem0/downloader-uploader.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/stonedem0/downloader-uploader/issues"
+  },
+  "homepage": "https://github.com/stonedem0/downloader-uploader#readme",
+  "description": ""
 }

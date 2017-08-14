@@ -7,7 +7,7 @@ $( '#btn_download' ).on('click', () => {
         $( e.target ).ajaxSubmit({
 
             error: ( xhr ) => {
-                status( 'Error: ' + xhr.status );
+                // status( 'Error: ' + xhr.status );
             },
             success: ( response ) => {
                 console.log( response );

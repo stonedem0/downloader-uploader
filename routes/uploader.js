@@ -22,13 +22,12 @@ const
 module.exports = ( app ) => {
     app.post( '/upload', ( req, res, next ) => {
         upload( req, res, (err) => {
-            console.log( req.body );
-            console.log( req.files );
+            console.log(req.body);
             if (err) {
                 next(new Error('something wrong'));
                 return;
             }
-            // res.end( 'File is uploaded' );
+            res.end( 'File is uploaded' );
             next();
 
         });
