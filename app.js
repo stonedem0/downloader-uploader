@@ -8,7 +8,7 @@ const
     localStrategy = require('passport-local').Strategy,
     dbConfig = require('./db/db'),
     mongoose = require('mongoose');
-    mongoose.connect('dbConfig.url');
+    mongoose.connect(dbConfig.url);
     // initPassport = require('./passport/init');
     // initPassport(passport);
 
