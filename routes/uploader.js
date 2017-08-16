@@ -6,7 +6,7 @@ const
         },
         filename: ( req, file, callback ) => {
             callback( null, file.originalname );
-            console.log(file.mimetype);
+            console.log(file);
         }
     }),
 
@@ -20,9 +20,12 @@ const
 
 
 module.exports = ( app ) => {
+
     app.post( '/upload', ( req, res, next ) => {
+        // console.log(req);
         upload( req, res, (err) => {
-            console.log(req.body);
+
+            // console.log(file);
             if (err) {
                 next(new Error('something wrong'));
                 return;
@@ -33,4 +36,5 @@ module.exports = ( app ) => {
         });
     });
 };
+
 
