@@ -1,4 +1,6 @@
 const
+    router = require('express').Router(),
+    passport = require( 'passport' ),
     multer = require( 'multer' ),
     storage = multer.diskStorage({
         destination: ( req, file, callback ) => {
@@ -14,27 +16,35 @@ const
 
 
 /**
- * upload module
+ * upload odule
  * @param app
  */
 
+router.post( '/upload',( req, res, next ) => {
+    if(!req.user) {
+        console.log(req.user);
+        res.send('opps')
+    }
+    // console.log(req);
 
-module.exports = ( app ) => {
-
-    app.post( '/upload', ( req, res, next ) => {
-        // console.log(req);
-        upload( req, res, (err) => {
+    else {
+        upload(req, res, (err) => {
 
             // console.log(file);
             if (err) {
                 next(new Error('something wrong'));
                 return;
             }
-            res.end( 'File is uploaded' );
+            res.end('File is uploaded');
             next();
 
         });
-    });
-};
+    }
+});
+
+
+
+
+module.exports = router;
 
 

@@ -2,9 +2,10 @@
  * download module
  * @param app
  */
+const 
+     router = require('express').Router();
 
-module.exports = ( app ) => {
-    app.get('/download', ( req, res, next ) => {
+ router.get('/download', ( req, res, next ) => {
         let file = './downloads/eva.png';
         // file = '';
         if ( !file ) {
@@ -18,6 +19,7 @@ module.exports = ( app ) => {
             res.download(file);
         }
     });
-};
 
 
+
+module.exports = router;
