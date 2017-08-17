@@ -30,14 +30,13 @@ app.use( express.static(__dirname + '/public' ) );
 
 
 
-let
-    users = {
-        'test': {
-            id: 'a1',
-            pass: '123',
-            name: 'asya'
-        }
-    };
+let users = {
+    'test': {
+        id: 'a1',
+        pass: '123',
+        name: 'asya'
+    }
+};
 
 // auth
 passport.use( new LocalStrategy( {
@@ -56,8 +55,6 @@ passport.use( new LocalStrategy( {
         }
     }
 ));
-
-
 app.use( passport.initialize() );
 
 
@@ -72,7 +69,7 @@ passport.deserializeUser( function(id, done) {
     console.log( 'deserializeUser', id );
     done( null, storage[ id ] );
 });
-// app.use( passport.session() );
+app.use( passport.session() );
 
 
 
@@ -81,6 +78,16 @@ app.use( require( './routes/uploader' ) );
 app.use( require( './routes/downloader' ) );
 app.use( require( './routes/users' ) );
 
+
+// error handling
+app.use( ( err, req, res, next ) => {
+    res.status( 400 )
+    res.send( {
+        error: true,
+        message: err.message,
+        details: err
+    } )
+} );
 
 
 app.listen( 3000, () => {

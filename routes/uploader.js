@@ -20,31 +20,16 @@ const
  * @param app
  */
 
-router.post( '/upload',( req, res, next ) => {
-    if(!req.user) {
-        console.log(req.user);
-        res.send('opps')
-    }
-    // console.log(req);
+router.post( '/upload', ( req, res, next ) => {
+    if ( !req.user )
+        return next( new Error( 'unauthorized' ) );
 
-    else {
-        upload(req, res, (err) => {
-
-            // console.log(file);
-            if (err) {
-                next(new Error('something wrong'));
-                return;
-            }
-            res.end('File is uploaded');
-            next();
-
-        });
-    }
-});
-
-
-
+    upload( req, res, ( err ) => {
+        if ( err )
+            return next( new Error( 'error-upload-file' ) );
+        res.end( 'File is uploaded' );
+        next();
+    } );
+} );
 
 module.exports = router;
-
-
