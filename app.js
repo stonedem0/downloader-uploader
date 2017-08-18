@@ -3,7 +3,7 @@ const
     logger = require('morgan'),
     cookieParser  = require('cookie-parser'),
     bodyParser = require('body-parser'),
-    // session = require('express-session'),
+    session = require('express-session'),
     passport = require('passport'),
     LocalStrategy = require('passport-local').Strategy,
 
@@ -22,11 +22,11 @@ app.use( express.static(__dirname + '/public' ) );
  
 
 
-// app.use(session({
-//     secret: 'secret',
-//     saveUninitialized: true,
-//     resave: true
-// }));
+app.use(session({
+    secret: 'secret',
+    saveUninitialized: true,
+    resave: true
+}));
 
 
 
