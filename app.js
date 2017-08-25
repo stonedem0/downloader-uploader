@@ -6,7 +6,8 @@ const
     session = require('express-session'),
     passport = require('passport'),
     LocalStrategy = require('passport-local').Strategy,
-
+    Joi = require('joi'),
+    Celebrate = require('celebrate'),
     dbConfig = require('./db/db');
 
 const app = express();
@@ -29,7 +30,6 @@ app.use(session({
 }));
 
 
-
 let users = {
     'test': {
         id: 'a1',
@@ -44,7 +44,7 @@ passport.use( new LocalStrategy( {
         usernameField: 'user',
         passwordField: 'secret'
     },
-    function( username, password, done ) {
+    ( username, password, done ) => {
         console.log( 'auth user', username, password );
         let user;
         if ( users[ username ] && users[ username ].pass === password){
@@ -59,13 +59,13 @@ app.use( passport.initialize() );
 
 
 let storage = {};
-passport.serializeUser( function(user, done) {
+passport.serializeUser( (user, done) => {
     console.log( 'serializeUser', user );
     let id = user.id;
     storage[ id ] = user;
     done( null, id );
 });
-passport.deserializeUser( function(id, done) {
+passport.deserializeUser( (id, done) => {
     console.log( 'deserializeUser', id );
     done( null, storage[ id ] );
 });
@@ -81,7 +81,7 @@ app.use( require( './routes/users' ) );
 
 // error handling
 app.use( ( err, req, res, next ) => {
-    res.status( 400 )
+    res.status( 400 );
     res.send( {
         error: true,
         message: err.message,
