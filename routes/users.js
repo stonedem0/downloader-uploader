@@ -6,15 +6,16 @@ const
     Celebrate = require( 'celebrate' );
 
 
-router.post( '/upload', Celebrate({
-    headers: Joi.object({
-        'content-length': Joi.number().integer().positive(),
-        'origin': Joi.string().regex(/^[a-zA-Z0-9]/),
-        'content-type': Joi.string().valid('application/json').required()
-    }).unknown()
-}));
-
 router.post( '/login', ( req, res, next ) => {
+    Celebrate({
+        headers: Joi.object({
+            'test': Joi.string().valid('test').required(),
+            'content-length': Joi.number().integer().positive(),
+            'origin': Joi.string().regex(/^[a-zA-Z0-9]/),
+            'content-type': Joi.string().valid('application/json').required()
+        }).unknown()
+    });
+    next();
     passport.authenticate( 'local', ( err, user, info ) => {
         if ( err )
             return next( err );
@@ -29,8 +30,20 @@ router.post( '/login', ( req, res, next ) => {
             } )
         } );
     } )( req, res, next );
-});
 
+
+
+});
+//
+//
+// router.use( '/login', Celebrate({
+//     headers: Joi.object({
+//         'test': Joi.string().valid('test').required(),
+//         'content-length': Joi.number().integer().positive(),
+//         'origin': Joi.string().regex(/^[a-zA-Z0-9]/),
+//         'content-type': Joi.string().valid('application/json').required()
+//     }).unknown()
+// }));
 
 // router.get( '/test', ( req, res ) => {
 //     res.send( { test:1, user: req.user } );

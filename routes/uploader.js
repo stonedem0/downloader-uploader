@@ -25,15 +25,14 @@ const
 
 router.use( BodyParser.json() );
 
-router.post( '/upload', Celebrate({
+router.post( '/upload',Celebrate({
     headers: Joi.object({
+        'test': Joi.string().valid('test').required(),
         'content-length': Joi.number().integer().positive(),
         'origin': Joi.string().regex(/^[a-zA-Z0-9]/),
         'content-type': Joi.string().regex(/^[a-zA-Z0-9]/)
     }).unknown()
-}));
-
-router.post( '/upload', ( req, res, next ) => {
+}), ( req, res, next ) => {
     if ( !req.user )
         return next( new Error( 'unauthorized' ) );
     upload( req, res, ( err ) => {
@@ -47,3 +46,4 @@ router.post( '/upload', ( req, res, next ) => {
 router.use(Celebrate.errors());
 
 module.exports = router;
+
