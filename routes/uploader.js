@@ -27,7 +27,6 @@ router.use( BodyParser.json() );
 
 router.post( '/upload',Celebrate({
     headers: Joi.object({
-        'test': Joi.string().valid('test').required(),
         'content-length': Joi.number().integer().positive(),
         'origin': Joi.string().regex(/^[a-zA-Z0-9]/),
         'content-type': Joi.string().regex(/^[a-zA-Z0-9]/)
