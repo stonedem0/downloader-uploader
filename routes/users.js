@@ -24,13 +24,18 @@ const passpoortFunc = ( req, res, next ) => {
 
 ﻿router.post( '/login',[Celebrate({
     headers: Joi.object({
-        'content-length': Joi.number().integer().positive()
-        // 'origin': Joi.string().regex(/^[a-zA-Z0-9]/)
-        // 'content-type': Joi.string().valid('application/json').required()
-    }).unknown()
+        'content-length': Joi.number().integer().positive(),
+        'origin': Joi.string().regex(/^[a-zA-Z0-9]/),
+        'content-type': Joi.string().valid('application/x-www-form-urlencoded').required()
+    }).unknown(),
+    body: Joi.object({
+         'user': Joi.string(),
+          'secret': Joi.string()
+    })
+
 }), passpoortFunc],
      ( req, res ) => {
-        res.send('ok')
+         res.send(req.body);
     });
 
 router.use(Celebrate.errors());
