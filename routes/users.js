@@ -3,9 +3,9 @@ const
     passport = require( 'passport' ),
     BodyParser = require( 'body-parser' ),
     Joi = require( 'joi' ),
-    Celebrate = require( 'celebrate' )
+    Celebrate = require( 'celebrate' );
 
-﻿const passpoortFunc = ( req, res, next ) => {
+const passpoortFunc = ( req, res, next ) => {
     passport.authenticate('local', (err, user, info) => {
         if (err)
             return next(err);
@@ -19,8 +19,8 @@ const
                 details: info
             })
         })
-    })
-}
+    })(req, res, next)
+};
 
 ﻿router.post( '/login',[Celebrate({
     headers: Joi.object({
