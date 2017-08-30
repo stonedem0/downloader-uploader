@@ -6,19 +6,21 @@ const
      router = require( 'express' ).Router(),
      BodyParser = require( 'body-parser' ),
      Joi = require( 'joi' ),
-     Celebrate = require( 'celebrate' );
+     celebrate = require( 'celebrate' );
+     schemas = {
+
+        httpHeader: require('../lib/schemas/http-schema')
+     };
 
 
  router.use(BodyParser.json());
 
 
- router.get('/download', Celebrate({
-     headers: Joi.object({
-         'host': Joi.string().regex(/^[a-zA-Z0-9]/),
-         'connection': Joi.string().regex(/^[a-zA-Z0-9]/),
-         'cache-control': Joi.string().regex(/^[a-zA-Z0-9]/)
-     }).unknown()
- }), ( req, res, next ) => {
+ router.get('/download',
+     celebrate({
+      headers: schemas.httpHeader[0]
+    }),
+     ( req, res, next ) => {
         let file = './downloads/eva.png';
         console.log();
         if ( !file ) {
@@ -32,8 +34,6 @@ const
         }
     });
 
-router.use(Celebrate.errors());
-
-
+router.use(celebrate.errors());
 
 module.exports = router;

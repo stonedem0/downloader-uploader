@@ -5,8 +5,8 @@ const
     Joi = require( 'joi' ),
     celebrate = require( 'celebrate' ),
     schemas = {
-        http_header: require( '../lib/schemas/http-schema' ),
-        login_data: require( '../lib/schemas/login-schema' )
+        httpHeader: require( '../lib/schemas/http-schema' ),
+        loginData: require( '../lib/schemas/login-schema' )
     };
 
 const passpoortFunc = ( req, res, next ) => {
@@ -27,22 +27,11 @@ const passpoortFunc = ( req, res, next ) => {
 };
 
 ﻿router.post( '/login',[
-    celebrate( { headers: schemas.http_header } ),
-    celebrate( { body: schemas.login_data } ),
-    // celebrate({
-    //     headers: Joi.object({
-    //         'content-length': Joi.number().integer().positive().greater(5),
-    //         'origin': Joi.string().regex(/^[a-zA-Z0-9]/),
-    //         'content-type': Joi.string().valid('application/x-www-form-urlencoded').required()
-    //     }).unknown(),
-    //     body: Joi.object({
-    //          'user': Joi.string().alphanum().max(20).min(2).valid('test').required(),
-    //           'secret': Joi.string().alphanum().max(20).min(2).valid('123').required()
-    //     })
-    // }),
+    celebrate( { headers: schemas.httpHeader } ),
+    celebrate( { body: schemas.loginData } ),
     passpoortFunc ],
     ( req, res ) => {
-         res.send(req.body);
+         res.send( req.body );
     });
 
 router.use( celebrate.errors() );
