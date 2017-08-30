@@ -2,7 +2,7 @@ const
       express = require( 'express' ),
       request = require('request'),
       app = require('../app'),
-      Uploader = require( '../routes/uploader' ),
+      Uploader = require( './uploader' ),
       // uploderTest = new Uploader(),
       base_url = 'http://localhost:3000/';
 

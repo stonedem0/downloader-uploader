@@ -1,9 +1,25 @@
 const
-      request = require('supertest'),
-      app = require('../app');
+    request = require('supertest'),
+    app = require('../app'),
+    joi = require( 'joi' ),
+    schema = Joi.object({
+        'user': Joi.string().alphanum().max(20).min(2).valid('test').required(),
+        'secret': Joi.string().alphanum().max(20).min(2).valid('123').required()
+    });
+
 
 
 describe('Server', () => {
+
+    it( 'Schemas', () => {
+        it( 'Test Scheama N1', ( done ) => {
+            let res = schema.validate({
+                user: 'a',
+                secret: '123'
+            });
+            expect( res.error ).toBeNull;
+        } );
+    } );
     
     it('Server should respond', (done) => {
         request(app)
