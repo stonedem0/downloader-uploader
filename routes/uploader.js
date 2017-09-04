@@ -15,9 +15,11 @@ const
         }
     }),
     upload = multer ({ storage: storage }).array( 'userPhoto', 10 ),
+    
     schemas = {
     httpHeader: require( '../lib/schemas/http-schema' )
     };
+
 
 /**
  * upload module
@@ -41,7 +43,9 @@ router.post( '/upload',
     } );
 } );
 
+
 router.use(celebrate.errors());
 
 module.exports = router;
+
 
