@@ -75,9 +75,8 @@ describe('Server', () => {
             .expect('Content-Disposition', 'attachment; filename="eva.png"')
             .end((error) => (error) ? done.fail(error) : done());
          });
-        it( 'Test sile', ( done ) => {
-            expect(file).not.toBeNull();
-            console.log('this is', file);
+        it( 'Test file', ( done ) => {
+            expect(file.file).not.toBeNull();
             done();
         });
     })
