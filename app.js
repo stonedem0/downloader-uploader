@@ -7,8 +7,8 @@ const
     passport = require('passport'),
     LocalStrategy = require('passport-local').Strategy,
     Joi = require('joi'),
-    Celebrate = require('celebrate'),
-    dbConfig = require('./db/db');
+    Celebrate = require('celebrate');
+    // dbConfig = require('./db/db');
 
 const app = express();
 
