@@ -89,6 +89,9 @@ app.use( ( err, req, res, next ) => {
     } )
 } );
 
+process.stdout.write('A simple message\n');
+
+
 
 if ( require.main === module )
     app.listen( 3000, () => {

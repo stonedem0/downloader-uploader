@@ -61,7 +61,7 @@ describe('Server', () => {
         });
        it( 'Test storage', ( done ) => {
            expect( storage.filename).not.toBeNull();
-           expect(storage.destination).not.toBeNull();
+           expect( storage.destination).not.toBeNull();
            done();
        });
 

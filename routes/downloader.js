@@ -5,14 +5,15 @@
 const 
      router = require( 'express' ).Router(),
      BodyParser = require( 'body-parser' ),
+     fs = require( 'fs' ),
+     // Datastore = require('nedb'),
+     db = require('../db/dbConfig'),
      Joi = require( 'joi' ),
-     celebrate = require( 'celebrate' );
+     celebrate = require( 'celebrate' ),
      schemas = {
 
         httpHeader: require('../lib/schemas/http-schema')
      };
-
-// let file = './downloads/eva.png';
 
 
  router.use(BodyParser.json());
@@ -23,21 +24,25 @@ const
       headers: schemas.httpHeader[0]
     }),
      ( req, res, next ) => {
-        let file = './downloads/eva.png';
+         console.log(db);
+        let file = db.find({pic1 :'./downloads/eva.png'}, (err, docs) =>{
+            console.log(file);
+        } );
 
         if ( !file ) {
 
             next( new Error( 'something wrong' ) );
         }
         else {
-            // console.log(res);
-            // console.log(file);
-            res.download(file);
+          
+            fs.createReadStream(file).pipe(res);
+            // res.download(file);
         }
     });
 
 router.use(celebrate.errors());
 
-console.log(router);
+
+// console.log(router);
 
 module.exports = router;
