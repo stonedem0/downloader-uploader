@@ -24,8 +24,7 @@ const
       headers: schemas.httpHeader[0]
     }),
      ( req, res, next ) => {
-         console.log('db', db);
-        let file = db.find({pic1 :'./downloads/eva.png'}, (err, docs) =>{
+        let file = db.find({'pic1' :'../downloads/eva.png'}, (err, docs) =>{
             console.log(docs);
         } );
 

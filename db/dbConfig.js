@@ -7,3 +7,4 @@ let store = new Datastore( {
 } );
 
 module.exports = store;
+
