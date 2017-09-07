@@ -15,8 +15,10 @@ const
         httpHeader: require('../lib/schemas/http-schema')
      };
 
+ db.insert({pic1 :'./downloads/eva.png'});
 
  router.use(BodyParser.json());
+
 
 
  router.get('/download',
@@ -24,22 +26,25 @@ const
       headers: schemas.httpHeader[0]
     }),
      ( req, res, next ) => {
-        let file = db.find({'pic1' :'../downloads/eva.png'}, (err, docs) =>{
-            console.log(docs);
+        db.findOne({pic1 :'./downloads/eva.png'}, (err, file) =>{
+            console.log('THIS', file.pic1);
+            console.log(db);
+            if ( !file.pic1 ) {
+
+                next( new Error( 'something wrong' ) );
+            }
+            else {
+
+                res.set('Content-Type','image/png');
+                fs.createReadStream(file.pic1).pipe(res);
+                // res.download(file);
+            }
         } );
 
-        if ( !file ) {
-
-            next( new Error( 'something wrong' ) );
-        }
-        else {
-          
-            fs.createReadStream(file).pipe(res);
-            // res.download(file);
-        }
     });
 
 router.use(celebrate.errors());
+
 
 
 // console.log(router);
