@@ -20,13 +20,12 @@ const
  router.use(BodyParser.json());
 
 
-
  router.get('/download',
      celebrate({
       headers: schemas.httpHeader[0]
     }),
      ( req, res, next ) => {
-        db.findOne({pic1 :'./downloads/eva.png'}, (err, file) =>{
+        db.findOne({pic1 :/png/}, (err, file) =>{
             console.log('THIS', file.pic1);
             console.log(db);
             if ( !file.pic1 ) {
@@ -34,8 +33,8 @@ const
                 next( new Error( 'something wrong' ) );
             }
             else {
-
-                res.set('Content-Type','image/png');
+                res.setHeader('Content-disposition', 'attachment; filename=eva.png');
+                res.setHeader('Content-type', 'image/png');
                 fs.createReadStream(file.pic1).pipe(res);
                 // res.download(file);
             }
