@@ -30,7 +30,7 @@ router.use( BodyParser.json() );
 
 router.post( '/upload',
     celebrate({
-        headers: schemas.httpHeader[0]
+        headers: schemas.httpHeader.mainSchema
     }),
     ( req, res, next ) => {
     if ( !req.user )

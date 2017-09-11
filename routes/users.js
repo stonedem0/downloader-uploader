@@ -27,7 +27,7 @@ const passpoortFunc = ( req, res, next ) => {
 };
 
 ﻿router.post( '/login',[
-    celebrate( { headers: schemas.httpHeader } ),
+    celebrate( { headers: schemas.httpHeader.mainSchema } ),
     celebrate( { body: schemas.loginData } ),
     passpoortFunc ],
     ( req, res ) => {
