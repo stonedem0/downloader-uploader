@@ -1,0 +1,143 @@
+doctype html
+html
+	header
+		title Miy
+		meta( charset="utf-8")
+		meta(name="description" content="")
+		meta(name="keywords" content="")
+		meta(name="author" content="")
+		meta(name="copyright" content="")
+		meta(name="viewport" content="width=device-width, initial-scale=1.0")
+		link(rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous")
+
+		//- iconic
+
+
+		style(type="text/css").
+			body{
+				background-color: #EEEEEE;
+			}
+			.wrapper{
+				max-width: 960px;
+			}
+			.input-file{
+				display: none;
+				width: 0.1px;
+				height: 0.1px;
+			}
+			.input-file + label{
+				font-size: 1.25em;
+				font-weight: 700;
+				color: white;
+				padding:5px;
+				background-color: black;
+				display: inline-block;
+				cursor: pointer;
+			}
+			.input-file:focus + label,
+			.input-file + label:hover {
+				background-color: #F50057;
+			}
+			.header{
+				background-color: #9B26AF;
+			}
+			.
+
+	body
+		ul.nav.justify-content-center.bg-dark
+			li.nav-item
+				a.nav-link.text-light( href="#") Home
+			li.nav-item
+				a.nav-link.text-light( href="#") Partnership
+			li.nav-item
+				a.nav-link.text-light( href="#") Contacts
+		.container.wrapper
+			.card.mt-4
+				.card-body
+					form.form-inline
+						.form-group
+							button(class="btn btn-lg btn-link btn-sm" type="button") Sign in
+						.form-group
+							button(class="btn btn-lg btn-link btn-sm" type="button") Create an account
+			
+			.card.mt-4
+				.card-body
+					h5.card-title Upload file
+					//- Drop Zone
+					div.p-3.text-center(style="border: 2px dashed #BDBDBD;")
+						.text-center
+							input(id="file" type="file" name="file" multiple).input-file.form-control-file
+							label( for="file") Choose file
+						p(style="color: #BDBDBD;") or drop file here
+					h5.card-title.pt-3 Progress
+					.progress
+						.progress-bar.bg-warning(role="progressbar" style="width: 35%" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100")
+			.card.mt-4
+				.card-body
+					h5.card-title Existing files
+					table.table.table-hover
+						//- thead
+						//- 	tr
+						//- 		th #
+						//- 		th File name
+						//- 		th User
+						//- 		th Download
+						//- tbody
+						//- 	tr
+						//- 		th(scope="row") 1
+						//- 		td picture1
+						//- 		td aaa
+						//- 		td link
+						//- 	tr
+						//- 		th(scope="row") 2
+						//- 		td picture2
+						//- 		td bbb
+						//- 		td link
+						//- 	tr
+						//- 		th( scope="row") 3
+						//- 		td picture3
+						//- 		td ccc
+						//- 		td link
+						tbody
+							tr
+								td file1
+							tr
+								td file2
+							tr
+								td file3
+
+			.card.mt-4
+				.card-header Miy account
+				.card-body.row
+					.mx-auto.col-12.col-sm-9.col-md-7.col-lg-5.col-lg-4
+						form
+							.form-group.form-row
+								label.col-sm-4.col-12.col-form-label(for="email" class=) Email
+								.col-8
+									input.form-control(ref="email" type="email" id="email" placeholder="Email")
+							.form-group.form-row
+								label.col-sm-4.col-12.col-form-label(for="ipassword") Password
+								.col-8
+									input.form-control(ref="password" type="password" id="password" placeholder="Password")
+							.form-group.form-row
+								.offset-3.col-8.col-sm-3
+									button.btn-outline-dark.btn-sm.btn-block(type="submit" class="btn btn-secondary") sign in
+
+
+			//- .container
+			//- form.sign-in
+			//- 	h2.card-title Please sign in
+			//- 	label(for="inputEmail" class="sr-only") Email address
+			//- 	input(type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus)
+			//- 	label(for="inputPassword" class="sr-only") Password
+			//- 	input(type="password" id="inputPassword" class="form-control" placeholder="Password" required)
+			//- 	lable(for="checkbox")
+			//- 		input(id="checkbox" type="checkbox" checked="checked")
+			//- 		| Remember me
+			//- 	button(class="btn btn-lg btn-primary btn-block" type="submit") Sign in
+
+
+
+		script(src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous")
+		script(src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous")
+		script(src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous")
