@@ -2910,13 +2910,28 @@ var riot$1 = extend({}, core, {
   util: util,
 });
 
-riot$1.tag2('app', '', '', '', function(opts) {
+riot$1.tag2('app', '<my-header></my-header> <my-container> <my-entrance></my-entrance> <my-login>if={this.state.login}</my-login> <my-files>if={this.state.files}</my-files> </my-container>', '', '', function(opts) {
+    this.state = {
+    	files: this.opts.files ? !! this.opts.files : true,
+    	login: this.opts.login ? !! this.opts.login : false
+    };
 });
 
 riot$1.tag2('my-header', '<ul class="nav justify-content-center bg-dark"> <li class="nav-item"><a class="nav-link text-light" href="#">Home</a></li> <li class="nav-item"><a class="nav-link text-light" href="#">Partnership</a></li> <li class="nav-item"><a class="nav-link text-light" href="#">Contacts</a></li> </ul>', '', '', function(opts) {
 });
 
-riot$1.mount('app');
-console.log( 'boom');
+riot$1.tag2('my-container', '', 'my-container{ max-width: 960px; }', 'class="wrapper"', function(opts) {
+});
+
+riot$1.tag2('my-entrance', '<div class="card-body"> <form class="form-inline"> <div class="form-group"> <button class="btn btn-lg btn-link btn-sm" type="button">Sign in</button> </div> <div class="form-group"> <button class="btn btn-lg btn-link btn-sm" type="button">Create an account</button> </div> </form> </div>', '', 'class="card mt-4"', function(opts) {
+});
+
+riot$1.tag2('my-login', '<div class="card-header">Miy account</div> <div class="card-body row"> <div class="mx-auto col-12 col-sm-9 col-md-7 col-lg-5 col-lg-4"> <form> <div class="form-group form-row"> <label class="col-sm-4 col-12 col-form-label true" for="email">Email</label> <div class="col-8"> <input class="form-control" ref="email" id="email" placeholder="Email" type="email"> </div> </div> <div class="form-group form-row"> <label class="col-sm-4 col-12 col-form-label" for="ipassword">Password</label> <div class="col-8"> <input class="form-control" ref="password" type="password" id="password" placeholder="Password"> </div> </div> <div class="form-group form-row"> <div class="offset-3 col-8 col-sm-3"> <button class="btn-outline-dark btn-sm btn-block btn btn-secondary" type="submit">sign in</button> </div> </div> </form> </div> </div>', '', 'class="card mt-4"', function(opts) {
+});
+
+riot$1.tag2('my-files', '<div class="card-body"> <h5 class="card-title">Existing files</h5> <table class="table table-hover"> <tbody> <tr> <td>file1</td> </tr> <tr> <td>file2</td> </tr> <tr> <td>file3</td> </tr> </tbody> </table> </div>', '', 'class="card mt-4"', function(opts) {
+});
+
+riot$1.mount( 'app');
 
 }());

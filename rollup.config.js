@@ -19,10 +19,15 @@ export default {
   		preferConst: true,
   		indent: ''
   	}),
-  	riot({
-  		template: 'pug',
-  		style: 'stylus'
-  	}),
+  	riot(
+  	{
+  		template: 'pug'
+  		// style: 'stylus',
+  		// parser: {
+  		// 	css: 'stylus'
+  		// }
+  	}
+  	),
   	nodeResolve({ jsnext: true}),
   	commonjs(),
   	buble()
