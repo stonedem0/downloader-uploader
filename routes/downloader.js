@@ -11,12 +11,6 @@ const
         httpHeader: require( '../lib/schemas/http-schema' )
      };
 
- db.insert( {pic1 :'./downloads/eva.png',
-            pic2 : './downloads/genji.png',
-            pic3 : './downloads/blame.png'
-            
-           } );
-
 // router.get( '/download', ( req, res ) => {
 //    res.send( 'downloads' );
 // });
@@ -27,30 +21,28 @@ router.get('/download/:id',
     }),
     ( req, res, next ) => {
         let id = req.params.id;
-        console.log( req );
         console.log( 'Recevied param: ', id );
-        if ( id ) {
-            let request = {};
-            request[id] = /png/;
-            console.log( 'Request created: ' + JSON.stringify( request ));
-            
-            db.findOne( request, (err, file) => {
-                console.log( 'Db result:', err, file );
-                if (!file[id]) {
-                    next(new Error( 'Something wrong' ));
-                }
-                else {
-                    let url = file[id];
-                    console.log( 'Response with url: ', url );
-                    res.setHeader( 'Content-disposition', 'attachment; filename=someFile.png' );
-                    res.setHeader( 'Content-type', 'image/png' );
-                    fs.createReadStream(url).pipe(res);
-                }
-            })
-        } 
-        else {
-            next(new Error( 'No id specified' ));
-        }
+
+        // error handling
+        if ( !id )
+            return next( new Error( 'No id specified' ) );
+        // action
+        db.findOne( {
+            _id: id
+        }, ( err, file ) => {
+
+            console.log( 'Db result:', err, file );
+            // console.log( 'Response with url: ', url );
+
+            // error handling
+            if ( err || !file )
+                return next( new Error( 'Something wrong' ) );
+            // action
+            let filepath = __dirname + '/../upload/' + file.filename;
+            res.setHeader( 'Content-disposition', 'attachment; filename=someFile.png' );
+            res.setHeader( 'Content-type', 'image/' + file.filetype );
+            fs.createReadStream( filepath ).pipe( res );
+        } )
     });
 
 router.use(celebrate.errors());
