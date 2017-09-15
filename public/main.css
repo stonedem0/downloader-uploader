@@ -1,3 +1,6 @@
 .picture-block {
     padding: 20px;
 }
+a {
+    display: block;
+}

@@ -78,10 +78,18 @@ router.post( '/upload',
         busboy.on( 'file', ( fieldname, file, filename ) => {
             console.log( 'Uploading: ' + filename );
             file.pipe( fs.createWriteStream( safe_path ) );
+            db.insert({filename: safe_filename}, (err) =>{
+                if (err) {
+                    return new Error()
+                }
+            });
+            console.log(filename)
         });
         busboy.on('finish', () => {
             res.end( 'Uploaded' );
         });
+
+        // console.log( busboy );
         return req.pipe( busboy );
     }
 );

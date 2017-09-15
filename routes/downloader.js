@@ -38,7 +38,7 @@ router.get('/download/:id',
             if ( err || !file )
                 return next( new Error( 'Something wrong' ) );
             // action
-            let filepath = __dirname + '/../upload/' + file.filename;
+            let filepath =  './upload/' + file.filename;
             res.setHeader( 'Content-disposition', 'attachment; filename=someFile.png' );
             res.setHeader( 'Content-type', 'image/' + file.filetype );
             fs.createReadStream( filepath ).pipe( res );
