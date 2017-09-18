@@ -16,17 +16,18 @@ my-login-form.card.mt-4
 						button.btn-outline-dark.btn-sm.btn-block(type="button" class="btn btn-secondary" onclick="{ submit }") Sign in
 
 
-script.
+	script.
 
-	import { auth } from '../service/auth.js'
-	
-	submit(){
-		auth.login( this.refs.email, this.refs.password );
-	}
+		import {auth} from '../service/auth.js'
 
-	auth.on( 'successful', riot.update )
+		console.log( 'auth from login', auth );
+		
+		submit(){
+			auth.login( this.refs.email, this.refs.password );
+		}
 
-	auth.on( 'error', ( err ) => {
-		console.log( 'login error', err );
-	} );
+		auth.on( 'successful', riot.update )
 
+		auth.on( 'error', ( err ) => {
+			console.log( 'login error', err );
+		} );

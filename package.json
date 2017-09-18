@@ -19,6 +19,13 @@
   "dependencies": {
     "body-parser": "^1.18.1",
     "express": "^4.15.4",
-    "riot": "^3.7.0"
+    "express-session": "^1.15.5",
+    "google-spreadsheet": "^2.0.4",
+    "nedb": "^1.8.0",
+    "passport": "^0.4.0",
+    "passport-local": "^1.0.0",
+    "riot": "^3.7.0",
+    "validator": "^8.2.0",
+    "ws": "^3.2.0"
   }
 }

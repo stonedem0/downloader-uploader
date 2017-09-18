@@ -9,8 +9,6 @@ app
 
 		import {auth} from '../service/auth.js'
 
-		console.log( auth );
-
 		this.on('mount', function () {
 			console.log("Tag mounted")
 		} )
@@ -22,9 +20,8 @@ app
 		};
 
 		auth.on( 'successful', () => {
-			console.log( 'successful' );
+			this.state.login = false;
 			this.state.upload = true;
-			riot.update();
 		} )
 
 		auth.on( 'logout', () => {

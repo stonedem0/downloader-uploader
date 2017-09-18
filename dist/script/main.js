@@ -2915,7 +2915,7 @@ var user = null;
 var auth = riot$1.observable( {
 
 	login: function ( email, password ) {
-		trigger( 'successful' );
+		auth.trigger( 'successful' );
 		console.log( 'successful' );
 	},
 
@@ -2925,24 +2925,9 @@ var auth = riot$1.observable( {
 
 } );
 
-// export let auth =  {
-
-// 	login: ( email, password ) => {
-// 		trigger( 'successful' );
-// 		console.log( 'successful' );
-// 	},
-
-// 	user: () => {
-// 		return user;
-// 	}
-
-// };
-
 riot$1.tag2('app', '<my-header></my-header> <my-container> <my-entrance></my-entrance> <my-login-form if="{parent.state.login}"></my-login-form> <my-upload if="{parent.state.upload}"></my-upload> <my-files if="{parent.state.files}"></my-files> </my-container>', '', '', function(opts) {
     var this$1 = this;
 
-
-    console.log( auth );
 
     this.on('mount', function () {
     	console.log("Tag mounted");
@@ -2955,9 +2940,8 @@ riot$1.tag2('app', '<my-header></my-header> <my-container> <my-entrance></my-ent
     };
 
     auth.on( 'successful', function () {
-    	console.log( 'successful' );
+    	this$1.state.login = false;
     	this$1.state.upload = true;
-    	riot$1.update();
     } );
 
     auth.on( 'logout', function () {
@@ -2994,18 +2978,18 @@ riot$1.tag2('my-entrance', '<div class="card-body"> <form class="form-inline"> <
 });
 
 riot$1.tag2('my-login-form', '<div class="card-header">Miy account</div> <div class="card-body row"> <div class="mx-auto col-12 col-sm-9 col-md-7 col-lg-5 col-lg-4"> <form onsubmit="{parent.parent.enterToAccount}"> <div class="form-group form-row"> <label class="col-sm-4 col-12 col-form-label true" for="email">Email</label> <div class="col-8"> <input class="form-control" ref="email" id="email" placeholder="Email" type="email"> </div> </div> <div class="form-group form-row"> <label class="col-sm-4 col-12 col-form-label" for="ipassword">Password</label> <div class="col-8"> <input class="form-control" ref="password" type="password" id="password" placeholder="Password"> </div> </div> <div class="form-group form-row"> <div class="offset-3 col-8 col-sm-3"> <button class="btn-outline-dark btn-sm btn-block btn btn-secondary" type="button" onclick="{submit}">Sign in</button> </div> </div> </form> </div> </div>', '', 'class="card mt-4"', function(opts) {
-});
-riot$1.tag2('script', '', '', '', function(opts) {
 
-  this.submit = function(){
-  	auth.login( this.refs.email, this.refs.password );
-  }.bind(this);
+    console.log( 'auth from login', auth );
 
-  auth.on( 'successful', riot$1.update );
+    this.submit = function(){
+    	auth.login( this.refs.email, this.refs.password );
+    }.bind(this);
 
-  auth.on( 'error', function ( err ) {
-  	console.log( 'login error', err );
-  } );
+    auth.on( 'successful', riot$1.update );
+
+    auth.on( 'error', function ( err ) {
+    	console.log( 'login error', err );
+    } );
 });
 
 riot$1.tag2('my-files', '<div class="card-body"> <h5 class="card-title">Existing files</h5> <table class="table table-hover"> <tbody> <tr> <td>file1</td> </tr> <tr> <td>file2</td> </tr> <tr> <td>file3</td> </tr> </tbody> </table> </div>', '', 'class="card mt-4"', function(opts) {

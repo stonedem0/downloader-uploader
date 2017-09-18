@@ -5,7 +5,7 @@ let user = null;
 export let auth = riot.observable( {
 
 	login: ( email, password ) => {
-		trigger( 'successful' );
+		auth.trigger( 'successful' );
 		console.log( 'successful' );
 	},
 
