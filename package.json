@@ -17,6 +17,8 @@
     "rollup-plugin-riot": "^1.1.0"
   },
   "dependencies": {
+    "body-parser": "^1.18.1",
+    "express": "^4.15.4",
     "riot": "^3.7.0"
   }
 }
