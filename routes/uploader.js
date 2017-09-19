@@ -2,7 +2,8 @@ const
     router = require( 'express' ).Router(),
     fs = require( 'fs' ),
     path = require( 'path' ),
-
+    readChunk = require('read-chunk'),
+    fileType = require('file-type'),
     db = require( '../db/dbConfig' ),
     celebrate = require( 'celebrate' ),
     Busboy = require('busboy'),
@@ -63,26 +64,29 @@ router.get( '/list', ( req, res ) => {
 
 
 router.post( '/upload',
-    // celebrate({
-    //     headers: schemas.httpHeader.mainSchema
-    // }),
+    celebrate({
+        headers: schemas.httpHeader.mainSchema
+    }),
     ( req, res, next ) => {
         if ( !req.user )
             return next( new Error( 'unauthorized' ) );
 
         let safe_filename =  Math.random().toString( 16 ).substr( 2 );
-        // let safe_path = path.join( os.tmpDir(), safe_filename );
+
         let safe_path = __dirname + '/../upload/' + safe_filename;
 
         let busboy = new Busboy( { headers: req.headers } );
         busboy.on( 'file', ( fieldname, file, filename ) => {
             console.log( 'Uploading: ' + filename );
             file.pipe( fs.createWriteStream( safe_path ) );
-            db.insert({filename: safe_filename}, (err) =>{
+            db.insert({title: 'Sample file',
+                       filename: safe_filename
+                        }, (err) => {
                 if (err) {
                     return new Error()
                 }
             });
+            // console.log('FILETYPE', fileType(safe_filename));
             console.log(filename)
         });
         busboy.on('finish', () => {
@@ -94,7 +98,7 @@ router.post( '/upload',
     }
 );
 
-// router.use(celebrate.errors());
+router.use(celebrate.errors());
 
 module.exports = router;
 
