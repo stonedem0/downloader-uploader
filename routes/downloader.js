@@ -13,42 +13,26 @@ const
         httpHeader: require( '../lib/schemas/http-schema' )
      };
 
-// router.get( '/download', ( req, res ) => {
-//    res.send( 'downloads' );
-// });
-
 router.get('/download/:id',
     celebrate({
         headers: schemas.httpHeader.mainSchema
     }),
-    
-    ( req, res, next ) => {
-       let id = req.params.id;
-        downloader();
-    //
-    //
-    //     console.log( 'Recevied param: ', id );
-    //
-    //     // error handling
-    //     if ( !id )
-    //         return next( new Error( 'No id specified' ) );
-    //     // action
-    //     db.findOne( {
-    //         _id: id
-    //     }, ( err, file ) => {
-    //
-    //         console.log( 'Db result:', err, file );
-    //         // console.log( 'Response with url: ', url );
-    //
-    //         // error handling
-    //         if ( err || !file )
-    //             return next( new Error( 'Something wrong' ) );
-    //         // action
-    //         let filepath =  './upload/' + file.filename;
-    //         res.setHeader( 'Content-disposition', 'attachment; filename=someFile.png' );
-    //         res.setHeader( 'Content-type', 'image/' + file.filetype );
-    //         fs.createReadStream( filepath ).pipe( res );
-    //     } )
+
+    (req, res, next) => {
+        let id = req.params.id;
+        if (id) {
+            downloader(id, function(error, resultFileURL) {
+                if (resultFileURL) {
+                    res.setHeader('Content-disposition', 'attachment; filename=someFile.png');
+                    res.setHeader('Content-type', 'image/png');
+                    fs.createReadStream(resultFileURL).pipe(res);
+                } else {
+                    next(error);
+                }
+            });
+        } else {
+            next(new Error("id not specified"))
+        }
     });
 
 router.use(celebrate.errors());
