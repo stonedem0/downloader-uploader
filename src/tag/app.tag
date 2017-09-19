@@ -16,12 +16,18 @@ app
 		this.state = {
 			files: this.opts.files ? !! this.opts.files : true,
 			login: this.opts.login ? !! this.opts.login : false,
-			upload: this.opts.upload ? !! this.opts.upload : false
+			upload: this.opts.upload ? !! this.opts.upload : false,
+			login_err : this.opts.error_login ? !! this.opts.error_login : false
 		};
 
 		auth.on( 'successful', () => {
 			this.state.login = false;
 			this.state.upload = true;
+			this.state.error_login = false;
+		} )
+
+		auth.on( 'login_err', () => {
+			this.state.error_login = true;
 		} )
 
 		auth.on( 'logout', () => {

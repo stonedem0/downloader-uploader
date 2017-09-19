@@ -14,6 +14,7 @@ my-login-form.card.mt-4
 				.form-group.form-row
 					.offset-3.col-8.col-sm-3
 						button.btn-outline-dark.btn-sm.btn-block(type="button" class="btn btn-secondary" onclick="{ submit }") Sign in
+					.error( if='{parent.parent.error_login') Login error
 
 
 	script.
@@ -23,11 +24,9 @@ my-login-form.card.mt-4
 		console.log( 'auth from login', auth );
 		
 		submit(){
-			auth.login( this.refs.email, this.refs.password );
+			auth.login( this.refs.email.value, this.refs.password.value );
 		}
 
 		auth.on( 'successful', riot.update )
 
-		auth.on( 'error', ( err ) => {
-			console.log( 'login error', err );
-		} );
+		auth.on( 'login_err', riot.update );
