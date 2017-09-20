@@ -7,6 +7,7 @@ const
     db = require( '../db/dbConfig' ),
     celebrate = require( 'celebrate' ),
     Busboy = require('busboy'),
+    uploader = require('../lib/apps/uploadModule');
 
     // multer = require( 'multer' ),
     // storage = multer.diskStorage({
@@ -30,25 +31,6 @@ const
  * @param app
  */
 
-// router.use( BodyParser.json() );
-//
-// router.post( '/upload',
-//     celebrate({
-//         headers: schemas.httpHeader.mainSchema
-//     }),
-//     ( req, res, next ) => {
-//     if ( !req.user )
-//         return next( new Error( 'unauthorized' ) );
-//     upload( req, res, ( err ) => {
-//         console.log(multer());
-//         if ( err ) {
-//             return next(new Error('error-upload-file'));
-//         }
-//         res.end( 'File is uploaded' );
-//         next();
-//     } );
-// } );
-
 
 router.get( '/list', ( req, res ) => {
     db.find( {}, ( err, files ) => {
@@ -68,33 +50,42 @@ router.post( '/upload',
         headers: schemas.httpHeader.mainSchema
     }),
     ( req, res, next ) => {
-        if ( !req.user )
-            return next( new Error( 'unauthorized' ) );
-
-        let safe_filename =  Math.random().toString( 16 ).substr( 2 );
-
-        let safe_path = __dirname + '/../upload/' + safe_filename;
-
+        let openStream = req.pipe;
         let busboy = new Busboy( { headers: req.headers } );
-        busboy.on( 'file', ( fieldname, file, filename ) => {
-            console.log( 'Uploading: ' + filename );
-            file.pipe( fs.createWriteStream( safe_path ) );
-            db.insert({title: 'Sample file',
-                       filename: safe_filename
-                        }, (err) => {
+        if(req.user) {
+            uploader(busboy, function (err) {
                 if (err) {
                     return new Error()
                 }
-            });
-            // console.log('FILETYPE', fileType(safe_filename));
-            console.log(filename)
-        });
-        busboy.on('finish', () => {
-            res.end( 'Uploaded' );
-        });
-
-        // console.log( busboy );
-        return req.pipe( busboy );
+                else openStream(busboy)
+            } )
+        }
+        // if ( !req.user )
+        //     return next( new Error( 'unauthorized' ) );
+        //
+        // let safe_filename =  Math.random().toString( 16 ).substr( 2 );
+        //
+        // let safe_path = __dirname + '/../upload/' + safe_filename;
+        //
+        // let busboy = new Busboy( { headers: req.headers } );
+        // busboy.on( 'file', ( fieldname, file, filename ) => {
+        //     console.log( 'Uploading: ' + filename );
+        //     file.pipe( fs.createWriteStream( safe_path ) );
+        //     db.insert({title: 'Sample file',
+        //                filename: safe_filename
+        //                 }, (err) => {
+        //         if (err) {
+        //             return new Error()
+        //         }
+        //     });
+        //
+        //     console.log(filename)
+        // });
+        // busboy.on('finish', () => {
+        //     res.end( 'Uploaded' );
+        // });
+        //
+        // return req.pipe( busboy );
     }
 );
 
