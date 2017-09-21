@@ -37,23 +37,27 @@ router.post( '/upload',
     celebrate({
         headers: schemas.httpHeader.mainSchema
     }),
-    ( req, res, next ) => {
+    ( req, res ) => {
         if(req.user) {
             let busboy = new Busboy( { headers: req.headers } );
-            busboy.on( 'file', ( fieldname, file, filename ) => {
-                uploader( file, ( err ) => {
+            // busboy.on( 'file', ( fieldname, file, filename, mimetype ) => {
+                uploader( busboy, ( err ) => {
                     if ( err ) {
+                        console.log(err);
                         return new Error()
                     }
-                    else res.send( 'uploaded' )
-                })
-            });
-            busboy.on( 'error', (err) => {
+                    else {
+                        res.send( 'uploaded' );
+                        console.log( 'maybe done' )
+                    }
+                });
+            // });
+            busboy.on( 'error', ( err ) => {
                 ﻿res.send( 500, 'Unable upload file', err );
             });
-            
-         return req.pipe( busboy );
 
+         console.log( 'almost done' );
+         return req.pipe( busboy );
         }
     }
 );
