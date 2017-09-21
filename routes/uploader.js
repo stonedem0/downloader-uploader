@@ -7,7 +7,7 @@ const
     // db = require( '../db/dbConfig' ),
     celebrate = require( 'celebrate' ),
     Busboy = require('busboy'),
-    uploader = require('../lib/apps/uploadModule');
+    uploader = require('../lib/apps/upload_module');
 
     schemas = {
         httpHeader: require( '../lib/schemas/http-schema' )

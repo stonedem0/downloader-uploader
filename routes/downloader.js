@@ -4,7 +4,7 @@
  */
 const 
      router = require( 'express' ).Router(),
-     downloader = require('../lib/apps/downloadModule'),
+     downloader = require('../lib/apps/download_module'),
      fs = require( 'fs' ),
      db = require( '../db/dbConfig' ),
      celebrate = require( 'celebrate' ),
