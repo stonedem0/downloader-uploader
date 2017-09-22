@@ -8,6 +8,7 @@ app
 	script.
 
 		import {auth} from '../service/auth.js'
+		import {uploader} from '../service/uploader.js'
 
 		this.on('mount', function () {
 			console.log("Tag mounted")
@@ -23,15 +24,19 @@ app
 		auth.on( 'successful', () => {
 			this.state.login = false;
 			this.state.upload = true;
-			this.state.error_login = false;
+			this.state.login_err = false;
 		} )
 
 		auth.on( 'login_err', () => {
-			this.state.error_login = true;
+			this.state.login_err = true;
 		} )
 
 		auth.on( 'logout', () => {
 			this.state.upload = false;
+		} )
+
+		uploader.on( 'upload_start', () => {
+			
 		} )
 
 		showLogin( e ){
@@ -39,13 +44,6 @@ app
 			this.state.login = true;
 			this.trigger( 'change' );
 		};
-
-		enterToAccount( e ){
-			e.preventDefault();
-			this.state.login = false;
-			this.state.upload = true;
-			this.trigger( 'change' );
-		}
 
 		this.on( 'change', this.update );
 

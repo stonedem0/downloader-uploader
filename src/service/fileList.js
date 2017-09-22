@@ -1,14 +1,24 @@
 import riot from 'riot';
 
-let user = null;
+let files = [
+	{
+		name: 'file1',
+		link: 'link1'
+	},
+	{
+		name: 'file2',
+		link: 'link2'
+	},
+	{
+		name: 'file3',
+		link: 'link3'
+	}
+]
 
-export let auth = riot.observable( {
+export fileList = riot.observable( { 
 
-	login: ( email, password ) => {
-		axios.post( '/login', {
-					username: email,
-					password: password
-		} )
+	getFiles: () => {
+		axios.post( '/files' )
 		.then( ( res ) => {
 			if( res.data.success) {
 				let email = res.data.success.email;
@@ -24,9 +34,6 @@ export let auth = riot.observable( {
 			console.log( 'err' );
 			console.log( err );
 		} )
-	},
-
-	user: () => {
-		return user;
 	}
+
 } );
