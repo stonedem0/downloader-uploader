@@ -15,25 +15,33 @@ let files = [
 	}
 ]
 
-export fileList = riot.observable( { 
+export let fileList = riot.observable( { 
 
-	getFiles: () => {
-		axios.post( '/files' )
-		.then( ( res ) => {
-			if( res.data.success) {
-				let email = res.data.success.email;
-				console.log( res.data.success );
-				auth.trigger( 'successful' );
-			};
-			if( res.data.error ){
-				console.log( res.data.error );
-				auth.trigger( 'login_err' );
-			}
-		} )
-		.catch( ( err ) => {
-			console.log( 'err' );
-			console.log( err );
-		} )
-	}
+		getFiles: () => {
+			return files;
+		},
+
+		addFile: ( name, link ) => {
+			files.push( { name: name, link: link } )
+		}
+
+	// getFiles: () => {
+	// 	axios.post( '/files' )
+	// 	.then( ( res ) => {
+	// 		if( res.data.success) {
+	// 			let email = res.data.success.email;
+	// 			console.log( res.data.success );
+	// 			auth.trigger( 'successful' );
+	// 		};
+	// 		if( res.data.error ){
+	// 			console.log( res.data.error );
+	// 			auth.trigger( 'login_err' );
+	// 		}
+	// 	} )
+	// 	.catch( ( err ) => {
+	// 		console.log( 'err' );
+	// 		console.log( err );
+	// 	} )
+	// }
 
 } );

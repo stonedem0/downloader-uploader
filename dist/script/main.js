@@ -3023,7 +3023,57 @@ riot$1.tag2('my-login-form', '<div class="card-header" if="{!parent.parent.state
     auth.on( 'login_err', riot$1.update );
 });
 
-riot$1.tag2('my-files', '<div class="card-body"> <h5 class="card-title">Existing files</h5> <table class="table table-hover"> <tbody> <tr> <td>file1</td> </tr> <tr> <td>file2</td> </tr> <tr> <td>file3</td> </tr> </tbody> </table> </div>', '', 'class="card mt-4"', function(opts) {
+var files = [
+	{
+		name: 'file1',
+		link: 'link1'
+	},
+	{
+		name: 'file2',
+		link: 'link2'
+	},
+	{
+		name: 'file3',
+		link: 'link3'
+	}
+];
+
+var fileList = riot$1.observable( { 
+
+		getFiles: function () {
+			return files;
+		},
+
+		addFile: function ( name, link ) {
+			files.push( { name: name, link: link } );
+		}
+
+	// getFiles: () => {
+	// 	axios.post( '/files' )
+	// 	.then( ( res ) => {
+	// 		if( res.data.success) {
+	// 			let email = res.data.success.email;
+	// 			console.log( res.data.success );
+	// 			auth.trigger( 'successful' );
+	// 		};
+	// 		if( res.data.error ){
+	// 			console.log( res.data.error );
+	// 			auth.trigger( 'login_err' );
+	// 		}
+	// 	} )
+	// 	.catch( ( err ) => {
+	// 		console.log( 'err' );
+	// 		console.log( err );
+	// 	} )
+	// }
+
+} );
+
+riot$1.tag2('my-files', '<div class="card-body"> <h5 class="card-title">Existing files</h5> <table class="table table-hover"> <tbody> <tr each="{files}"> <td>{name}</td> </tr> </tbody> </table> </div>', '', 'class="card mt-4"', function(opts) {
+
+    this.files = fileList.getFiles();
+
+    console.log( this.files[0] );
 });
 
 riot$1.tag2('my-upload', '<div class="card-body"> <h5 class="card-title" ondragenter="{leaveDropZone}">Upload file</h5> <div class="p-3 text-center drop-zone" ondrop="{drop}" ondragenter="{enterDropZone}" ondragstart="{dragstart}"> <div class="text-center"> <input class="input-file form-control-file" id="file" type="file" name="file" onchange="{upload}" multiple> <label for="file">Choose file</label> </div> <p style="color: #BDBDBD;">or drop file here</p> </div> <h5 class="card-title pt-3" ondragenter="{leaveDropZone}">Progress</h5> <div class="progress"> <div class="progress-bar bg-warning" role="progressbar" ref="progress" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100"></div> </div> </div>', 'my-upload .input-file,[data-is="my-upload"] .input-file{ display: none; width: 0.1px; height: 0.1px; } my-upload .input-file + label,[data-is="my-upload"] .input-file + label{ font-size: 1.25em; font-weight: 700; color: white; padding:5px; background-color: black; display: inline-block; cursor: pointer; } my-upload .input-file:focus + label,[data-is="my-upload"] .input-file:focus + label,my-upload .input-file + label:hover,[data-is="my-upload"] .input-file + label:hover{ background-color: #F50057; } my-upload .drop-zone,[data-is="my-upload"] .drop-zone{ background-color: #F5F5F5; border: 2px dashed #BBDEFB; box-sizing: border-box; } my-upload .progress-bar,[data-is="my-upload"] .progress-bar{ transition: all 1s ease-in-out .5s; width: 0%; } my-upload .uploading,[data-is="my-upload"] .uploading{ width: 100%; }', 'class="card mt-4"', function(opts) {
