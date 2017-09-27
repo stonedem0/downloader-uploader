@@ -7,8 +7,9 @@ const
     passport = require('passport'),
     LocalStrategy = require('passport-local').Strategy,
     Joi = require('joi'),
-    Celebrate = require('celebrate');
+    Celebrate = require('celebrate'),
     // dbConfig = require('./db/db');
+    users = require( './storage/users.js' );
 
 const app = express();
 
@@ -21,40 +22,47 @@ app.use( cookieParser() );
 
 
 // configure application
-app.use( express.static( __dirname + '/public' ) );
+app.use( express.static( __dirname + '/../client/dist' ) );
  
 
 
 app.use( session({
-    secret: 'secret',
+    secret: 'sloth',
     saveUninitialized: true,
     resave: true
 }));
 
 
-let users = {
-    'test': {
-        id: 'a1',
-        pass: '123',
-        name: 'asya'
-    }
-};
+// let users = {
+//     'test': {
+//         id: 'a1',
+//         pass: 'a',
+//         name: 'aaa@ukr.net'
+//     }
+// };
 
 // auth
-passport.use( new LocalStrategy( {
-        // POST { user: '', secret: '' }
-        usernameField: 'user',
-        passwordField: 'secret'
-    },
+passport.use( new LocalStrategy(
+    // {
+    //     // POST { user: '', secret: '' }
+    //     usernameField: 'user',
+    //     passwordField: 'secret'
+    // // },
     ( username, password, done ) => {
-        console.log( 'auth user', username, password );
-        let user;
-        if ( users[ username ] && users[ username ].pass === password){
-            done( null, users[ username ], { } )
-        }
-        else {
-            done(null, false, { message: 'bad password'});
-        }
+        users.findOne( { email: username }, ( err, doc ) =>{
+            console.log();
+            // let user;
+            if ( users[ username ] && users[ username ].pass === password){
+                done( null, users[ username ], { } )
+            }
+            else {
+                done(null, false, { message: 'bad password'});
+            }
+            console.log( 'auth user', username, password );
+            return done( null, doc );
+        });
+
+
     }
 ));
 app.use( passport.initialize() );

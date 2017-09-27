@@ -5,6 +5,7 @@ let user = null;
 export let auth = riot.observable( {
 
 	login: ( email, password ) => {
+
 		axios.post( '/login', {
 					username: email,
 					password: password
@@ -14,7 +15,8 @@ export let auth = riot.observable( {
 				let email = res.data.success.email;
 				console.log( res.data.success );
 				auth.trigger( 'successful' );
-			};
+
+			}
 			if( res.data.error ){
 				console.log( res.data.error );
 				auth.trigger( 'login_err' );

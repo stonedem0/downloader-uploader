@@ -31,7 +31,8 @@ const passpoortFunc = ( req, res, next ) => {
     celebrate( { body: schemas.loginData } ),
     passpoortFunc ],
     ( req, res ) => {
-         res.send( req.body );
+         // res.send( req.body );
+        res.send({success:{}})
     });
 
 router.use( celebrate.errors() );

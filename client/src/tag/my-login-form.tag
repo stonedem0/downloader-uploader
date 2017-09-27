@@ -9,7 +9,7 @@ my-login-form.card.mt-4
 					.col-8
 						input.form-control(ref="email" type="email" id="email" placeholder="Email")
 				.form-group.form-row
-					label.col-sm-4.col-12.col-form-label(for="ipassword") Password
+					label.col-sm-4.col-12.col-form-label(for="password") Password
 					.col-8
 						input.form-control(ref="password" type="password" id="password" placeholder="Password")
 				.form-group.form-row
@@ -21,7 +21,6 @@ my-login-form.card.mt-4
 		.error{
 			font-size: .8em;
 		}
-
 
 	script.
 
